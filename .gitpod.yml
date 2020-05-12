@@ -1,7 +1,9 @@
 image: theasp/clojurescript-nodejs:latest
 tasks:
   - command: ./setup-git.sh
-  - name: Change git credential
+    name: Change git credential
+  - init: cd crudy && lein deps
+    name: Main Dev
 vscode:
   extensions:
     - betterthantomorrow.calva@2.0.85:3xoOa+PKIAT1KeoQ8mF/OQ==
