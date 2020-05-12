@@ -24,6 +24,7 @@
                              :linux   "xdg-open"}}}
 
   :shadow-cljs {:nrepl {:port 8777}
+                ;:ssl {}
                 
                 :builds {:app {:target :browser
                                :output-dir "resources/public/js/compiled"
@@ -33,6 +34,7 @@
 
                                :devtools {:http-root "resources/public"
                                           :http-port 8280
+                                          :devtools-url ~(clojure.string/trim-newline (clojure.string/replace (:out (clojure.java.shell/sh "gp" "url")) "https://" "https://5050-"))
                                           }}}}
 
   :aliases {"dev"          ["with-profile" "dev" "do"
