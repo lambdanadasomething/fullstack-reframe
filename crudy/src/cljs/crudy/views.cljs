@@ -3,7 +3,12 @@
    [re-frame.core :as re-frame]
    [crudy.subs :as subs]
    ["@elastic/eui" :refer (EuiButton EuiText)]
+   [accountant.core :as accountant]
    ))
+
+(accountant/configure-navigation!
+ {:nav-handler   (fn [path] (js/alert "Hello"))
+  :path-exists?  (fn [path] true)})
 
 (defn main-panel []
   (let [name (re-frame/subscribe [::subs/name])]
