@@ -7,7 +7,8 @@
                  [thheller/shadow-cljs "2.9.0"]
                  [reagent "0.10.0"]
                  [re-frame "0.12.0"]
-                 [venantius/accountant "0.2.5"]]
+                 [venantius/accountant "0.2.5"]
+                 [clj-commons/secretary "1.2.4"]]
 
   :plugins [[lein-shadow "0.1.7"]
             

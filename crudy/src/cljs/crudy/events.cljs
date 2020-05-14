@@ -8,3 +8,7 @@
  ::initialize-db
  (fn [_ _]
    db/default-db))
+
+(comment (re-frame/reg-event-db
+ ::change-path
+ (fn [])))

@@ -10,7 +10,8 @@
  {:nav-handler   (fn [path] (js/alert "Hello"))
   :path-exists?  (fn [path] true)})
 
-(defn main-panel []
+
+(defn welcome-panel []
   (let [name (re-frame/subscribe [::subs/name])]
     [:div
      [:> EuiText
@@ -23,3 +24,22 @@
        [:li "Item three"]]]
      [:> EuiButton {:href "mylink"} "Filled"]
      ]))
+
+(defn list-things-panel []
+  [:div])
+
+(defn not-found-panel []
+  [:div
+   [:h1 "404 - Page not found"]
+   [:p "Nothing on file here. Did you misspell the url? :-/"]])
+
+(defn mycontent [route]
+  (case route
+    :welcome     [welcome-panel]
+    :list-things [list-things-panel]
+    :not-found   [not-found-panel]
+    [:div]))
+
+(defn main-panel []
+  (let [cur-route (re-frame/subscribe [::subs/view])]
+    [mycontent @cur-route]))
