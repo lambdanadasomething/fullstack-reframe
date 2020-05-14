@@ -4,9 +4,11 @@
    [crudy.subs :as subs]
    [crudy.events :as events]
    ["@elastic/eui" :refer (EuiButton EuiText EuiFieldText EuiPage EuiPageBody EuiPageContent EuiPageContentBody
-     EuiPageContentHeader EuiPageContentHeaderSection EuiPageHeader EuiPageHeaderSection EuiTitle)]
+                                     EuiPageContentHeader EuiPageContentHeaderSection EuiPageHeader EuiPageHeaderSection EuiTitle
+                                     EuiBasicTable EuiBadge)]
    [accountant.core :as accountant]
    [secretary.core :as secretary :refer-macros [defroute]]
+   [reagent.core :as rc]
    ))
 
 
@@ -39,9 +41,16 @@
      ]))
 
 (defn list-things-panel []
-  [:div
-   [:h1 "List of things"]
-   [:> EuiButton {:href "/"} "Go back"]])
+  (let [myitems (re-frame/subscribe [::subs/things])
+        cols [{ :field "id" :name "UID" }
+              { :field "user-name" :name "User Name" }
+              { :field "stat" :name "Statistics" }
+              { :field "attr" :name "Attributes" :render (fn [xs] (rc/as-element (for [x xs]
+                                                                                   [:> EuiBadge {:color "secondary"} x])))}]]
+    [:div
+     [:h1 "List of things"]
+     [:> EuiBasicTable {:items @myitems :columns cols}]
+     [:> EuiButton {:href "/"} "Go back"]]))
 
 (defn not-found-panel []
   [:div
