@@ -3,7 +3,8 @@
    [re-frame.core :as re-frame]
    [crudy.subs :as subs]
    [crudy.events :as events]
-   ["@elastic/eui" :refer (EuiButton EuiText EuiFieldText)]
+   ["@elastic/eui" :refer (EuiButton EuiText EuiFieldText EuiPage EuiPageBody EuiPageContent EuiPageContentBody
+     EuiPageContentHeader EuiPageContentHeaderSection EuiPageHeader EuiPageHeaderSection EuiTitle)]
    [accountant.core :as accountant]
    [secretary.core :as secretary :refer-macros [defroute]]
    ))
@@ -54,6 +55,23 @@
     :not-found   [not-found-panel]
     [:div]))
 
+(defn common-header []
+  [:> EuiPageHeaderSection
+   [:> EuiTitle {:size 1}
+    [:h1 "Common title"]]])
+
+(defn page-header []
+  [:> EuiPageHeaderSection
+   [:> EuiTitle
+    [:h2 "Content title"]]])
+
 (defn main-panel []
   (let [cur-route (re-frame/subscribe [::subs/view])]
-    [mycontent @cur-route]))
+    [:> EuiPage
+     [:> EuiPageBody {:component "div"}
+      [:> EuiPageHeader
+       [common-header]]
+      [:> EuiPageContent
+       [:> EuiPageContentHeader [page-header]]
+       [:> EuiPageContentBody [mycontent @cur-route]]]]]
+    ))
