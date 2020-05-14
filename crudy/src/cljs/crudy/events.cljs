@@ -9,6 +9,12 @@
  (fn [_ _]
    db/default-db))
 
-(comment (re-frame/reg-event-db
- ::change-path
- (fn [])))
+(re-frame/reg-event-db
+ ::change-name
+ (fn [db [_ name]]
+   (assoc-in db [:name] name)))
+
+(re-frame/reg-event-db
+ ::change-view
+ (fn [db [_ view param]]
+   (assoc-in db [:view] view)))

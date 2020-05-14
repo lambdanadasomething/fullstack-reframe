@@ -2,12 +2,21 @@
   (:require
    [re-frame.core :as re-frame]
    [crudy.subs :as subs]
-   ["@elastic/eui" :refer (EuiButton EuiText)]
+   [crudy.events :as events]
+   ["@elastic/eui" :refer (EuiButton EuiText EuiFieldText)]
    [accountant.core :as accountant]
+   [secretary.core :as secretary :refer-macros [defroute]]
    ))
 
+
+(defroute "/" []
+  (re-frame/dispatch [::events/change-view :welcome]))
+
+(defroute "/mylink" []
+  (re-frame/dispatch [::events/change-view :list-things]))
+
 (accountant/configure-navigation!
- {:nav-handler   (fn [path] (js/alert "Hello"))
+ {:nav-handler   (fn [path] (secretary/dispatch! path))
   :path-exists?  (fn [path] true)})
 
 
@@ -22,11 +31,16 @@
        [:li "Item one"]
        [:li "Item two"]
        [:li "Item three"]]]
-     [:> EuiButton {:href "mylink"} "Filled"]
+     [:> EuiButton {:href "mylink"} "List of things"]
+     [:div
+      [:> EuiFieldText {:id "myfield"}]
+      [:> EuiButton {:onClick #(re-frame/dispatch [::events/change-name (.-value (js/document.getElementById "myfield"))])} "Change name"]]
      ]))
 
 (defn list-things-panel []
-  [:div])
+  [:div
+   [:h1 "List of things"]
+   [:> EuiButton {:href "/"} "Go back"]])
 
 (defn not-found-panel []
   [:div
