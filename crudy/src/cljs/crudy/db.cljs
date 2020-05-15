@@ -5,6 +5,7 @@
    ;:view [:list-things]
    :view :welcome
    :state {}
+   :modal [false nil]
    :data {
           :things [{:id 1 :user-name "Foo" :stat 53 :attr ["twit" "goog"]}
                    {:id 2 :user-name "Bar" :stat 21 :attr ["goog"]}

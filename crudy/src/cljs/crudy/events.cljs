@@ -23,3 +23,14 @@
  ::list-things-table-select
  (fn [db [_ selected]]
    (assoc-in db [:state :things :selected] selected)))
+
+(re-frame/reg-event-db
+ ::list-things-delete
+ (fn [db [_ id]]
+   (assoc-in db [:modal] [true :confirm-delete])))
+
+; Temp event?
+(re-frame/reg-event-db
+ ::close-modal
+ (fn [db [_]]
+   (assoc-in db [:modal] [false nil])))

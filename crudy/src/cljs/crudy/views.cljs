@@ -5,7 +5,8 @@
    [crudy.events :as events]
    ["@elastic/eui" :refer (EuiButton EuiText EuiFieldText EuiPage EuiPageBody EuiPageContent EuiPageContentBody
                                      EuiPageContentHeader EuiPageContentHeaderSection EuiPageHeader EuiPageHeaderSection EuiTitle
-                                     EuiBasicTable EuiBadge EuiForm EuiDatePicker EuiComboBox EuiIcon EuiPanel EuiSpacer)]
+                                     EuiBasicTable EuiBadge EuiForm EuiDatePicker EuiComboBox EuiIcon EuiPanel EuiSpacer
+                                     EuiConfirmModal EuiOverlayMask)]
    [accountant.core :as accountant]
    [secretary.core :as secretary :refer-macros [defroute]]
    [reagent.core :as rc]
@@ -49,7 +50,11 @@
               { :field "user-name" :name "User Name" }
               { :field "stat" :name "Statistics" }
               { :field "attr" :name "Attributes" :render (fn [xs] (rc/as-element (for [x xs]
-                                                                                   [:> EuiBadge {:color "secondary"} x])))}]
+                                                                                   [:> EuiBadge {:color "secondary"} x])))}
+              { :name "Actions" :actions [{ :name "Edit"   :description "Edit this item"   :icon "pencil" :type "icon" 
+                                           :onClick (fn [x] x) }
+                                          { :name "Delete" :description "Delete this item" :icon "trash"  :type "icon" 
+                                           :onClick (fn [x] (re-frame/dispatch [::events/list-things-delete x])) }]}]
         selected-items (re-frame/subscribe [::subs/list-things-selected])]
     [:div
      [:h1 "List of things"]
@@ -94,13 +99,29 @@
    [:> EuiTitle
     [:h2 "Content title"]]])
 
+(defn confrim-delete-modal []
+  [:> EuiConfirmModal {:title "Test" :onCancel #(re-frame/dispatch [::events/close-modal]) :onConfirm #(re-frame/dispatch [::events/close-modal])
+                       :cancelButtonText "Cancel" :confirmButtonText "Confirm" :buttonColor "danger" :defaultFocusedButton "cancel"}
+   [:p "Are you sure you want to delete?"]])
+
+(defn prompt-modal [type]
+  (case type
+    :confirm-delete [confrim-delete-modal]
+    [:div [:p "Opps..."]]))
+
 (defn main-panel []
-  (let [cur-route (re-frame/subscribe [::subs/view])]
-    [:> EuiPage
-     [:> EuiPageBody {:component "div"}
-      [:> EuiPageHeader
-       [common-header]]
-      [:> EuiPageContent
-       [:> EuiPageContentHeader [page-header]]
-       [:> EuiPageContentBody [mycontent @cur-route]]]]]
+  (let [cur-route (re-frame/subscribe [::subs/view])
+        modal (re-frame/subscribe [::subs/modal])]
+    (fn []
+      [:> EuiPage
+       [:> EuiPageBody {:component "div"}
+        [:> EuiPageHeader
+         [common-header]]
+        [:> EuiPageContent
+         [:> EuiPageContentHeader [page-header]]
+         [:> EuiPageContentBody [mycontent @cur-route]]]]
+       (let [[has-modal modal-type] @modal]
+         (when has-modal
+           [:> EuiOverlayMask
+            [prompt-modal modal-type]]))])
     ))
