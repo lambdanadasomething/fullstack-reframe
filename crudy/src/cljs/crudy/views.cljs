@@ -5,7 +5,7 @@
    [crudy.events :as events]
    ["@elastic/eui" :refer (EuiButton EuiText EuiFieldText EuiPage EuiPageBody EuiPageContent EuiPageContentBody
                                      EuiPageContentHeader EuiPageContentHeaderSection EuiPageHeader EuiPageHeaderSection EuiTitle
-                                     EuiBasicTable EuiBadge)]
+                                     EuiBasicTable EuiBadge EuiForm EuiDatePicker)]
    [accountant.core :as accountant]
    [secretary.core :as secretary :refer-macros [defroute]]
    [reagent.core :as rc]
@@ -51,6 +51,12 @@
      [:h1 "List of things"]
      [:> EuiBasicTable {:items @myitems :columns cols}]
      [:> EuiButton {:href "/"} "Go back"]]))
+
+(defn search-things-widget []
+  [:> EuiForm {:component "form"}
+   [:> EuiFieldText]
+   [:> EuiDatePicker]
+   [:> EuiButton {:type "submit" :fill true} "Search"]])
 
 (defn not-found-panel []
   [:div
