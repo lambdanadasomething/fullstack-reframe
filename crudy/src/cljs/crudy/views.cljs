@@ -52,7 +52,7 @@
               { :field "attr" :name "Attributes" :render (fn [xs] (rc/as-element (for [x xs]
                                                                                    [:> EuiBadge {:color "secondary"} x])))}
               { :name "Actions" :actions [{ :name "Edit"   :description "Edit this item"   :icon "pencil" :type "icon" 
-                                           :onClick (fn [x] x) }
+                                           :href "https://www.google.com" }
                                           { :name "Delete" :description "Delete this item" :icon "trash"  :type "icon" 
                                            :onClick (fn [x] (re-frame/dispatch [::events/list-things-delete x])) }]}]
         selected-items (re-frame/subscribe [::subs/list-things-selected])]
