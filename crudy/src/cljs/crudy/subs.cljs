@@ -12,10 +12,13 @@
  (fn [db]
    (get-in db [:data :things])))
 
+(defn maptize [seq k]
+  (map #(assoc {} k %) seq))
+
 (re-frame/reg-sub
  ::tags
  (fn [db]
-   (get-in db [:data :tags])))
+   (maptize (get-in db [:data :tags]) :label)))
 
 (re-frame/reg-sub
  ::view

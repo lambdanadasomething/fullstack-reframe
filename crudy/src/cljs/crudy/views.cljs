@@ -5,7 +5,7 @@
    [crudy.events :as events]
    ["@elastic/eui" :refer (EuiButton EuiText EuiFieldText EuiPage EuiPageBody EuiPageContent EuiPageContentBody
                                      EuiPageContentHeader EuiPageContentHeaderSection EuiPageHeader EuiPageHeaderSection EuiTitle
-                                     EuiBasicTable EuiBadge EuiForm EuiDatePicker)]
+                                     EuiBasicTable EuiBadge EuiForm EuiDatePicker EuiComboBox EuiIcon EuiPanel EuiSpacer)]
    [accountant.core :as accountant]
    [secretary.core :as secretary :refer-macros [defroute]]
    [reagent.core :as rc]
@@ -40,7 +40,7 @@
       [:> EuiButton {:onClick #(re-frame/dispatch [::events/change-name (.-value (js/document.getElementById "myfield"))])} "Change name"]]
      ]))
 
-(defn list-things-panel []
+(defn list-things-content []
   (let [myitems (re-frame/subscribe [::subs/things])
         cols [{ :field "id" :name "UID" }
               { :field "user-name" :name "User Name" }
@@ -53,10 +53,18 @@
      [:> EuiButton {:href "/"} "Go back"]]))
 
 (defn search-things-widget []
-  [:> EuiForm {:component "form"}
-   [:> EuiFieldText]
-   [:> EuiDatePicker]
-   [:> EuiButton {:type "submit" :fill true} "Search"]])
+  (let [opt (re-frame/subscribe [::subs/tags])]
+    [:> EuiForm {:component "form"}
+     [:> EuiFieldText]
+     [:> EuiDatePicker]
+     [:> EuiComboBox {:options @opt :delimiter "," :selectedOptions [{:label "git"} {:label "goog"}]}]
+     [:> EuiButton {:type "submit" :fill true} "Search"]]))
+
+(defn list-things-panel []
+  [:div
+   [:> EuiPanel [search-things-widget]]
+   [:> EuiSpacer]  
+   [list-things-content]])
 
 (defn not-found-panel []
   [:div
