@@ -18,3 +18,8 @@
  ::change-view
  (fn [db [_ view param]]
    (assoc-in db [:view] view)))
+
+(re-frame/reg-event-db
+ ::list-things-table-select
+ (fn [db [_ selected]]
+   (assoc-in db [:state :things :selected] selected)))

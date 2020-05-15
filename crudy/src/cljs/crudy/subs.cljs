@@ -29,3 +29,8 @@
  ::state
  (fn [db]
    (:state db)))
+
+(re-frame/reg-sub
+ ::list-things-selected
+ (fn [db]
+   (get-in db [:state :things :selected])))

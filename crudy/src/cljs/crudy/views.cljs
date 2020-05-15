@@ -40,16 +40,22 @@
       [:> EuiButton {:onClick #(re-frame/dispatch [::events/change-name (.-value (js/document.getElementById "myfield"))])} "Change name"]]
      ]))
 
+(defn extract-id [list id]
+  (map #(get % id) (js->clj list)))
+
 (defn list-things-content []
   (let [myitems (re-frame/subscribe [::subs/things])
         cols [{ :field "id" :name "UID" }
               { :field "user-name" :name "User Name" }
               { :field "stat" :name "Statistics" }
               { :field "attr" :name "Attributes" :render (fn [xs] (rc/as-element (for [x xs]
-                                                                                   [:> EuiBadge {:color "secondary"} x])))}]]
+                                                                                   [:> EuiBadge {:color "secondary"} x])))}]
+        selected-items (re-frame/subscribe [::subs/list-things-selected])]
     [:div
      [:h1 "List of things"]
-     [:> EuiBasicTable {:items @myitems :columns cols}]
+     [:p (str @selected-items)]
+     [:> EuiBasicTable {:items @myitems :columns cols :itemId "id" 
+                        :selection {:onSelectionChange (fn [x] (re-frame/dispatch [::events/list-things-table-select (extract-id x "id")]))}}]
      [:> EuiButton {:href "/"} "Go back"]]))
 
 (defn search-things-widget []
