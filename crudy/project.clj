@@ -26,6 +26,7 @@
                              :linux   "xdg-open"}}}
 
   :shadow-cljs {:nrepl {:port 8777}
+                :dev-http {8280 ["resources/public" "node_modules/@elastic/eui/es/components/icons/"]}
                 ;:ssl {}
                 
                 :builds {:app {:target :browser
@@ -34,8 +35,8 @@
                                :modules {:app {:init-fn crudy.core/init
                                                :preloads [devtools.preload]}}
 
-                               :devtools {:http-root "resources/public"
-                                          :http-port 8280
+                               :devtools {;:http-root ["resources/public" "node_modules/@elastic/eui/es/components/icons/"]
+                                          ;:http-port 8280
                                           :devtools-url ~(clojure.string/trim-newline (clojure.string/replace (:out (clojure.java.shell/sh "gp" "url")) "https://" "https://5050-"))
                                           }}
                          :ssr {:target :node-script
