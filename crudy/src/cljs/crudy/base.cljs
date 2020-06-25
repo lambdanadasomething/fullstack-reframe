@@ -1,16 +1,17 @@
 (ns crudy.base
   (:require [re-frame.core :as re-frame]
+            [crudy.routing :as routing]
             ["@elastic/eui" :refer (EuiPage EuiPageBody EuiPageHeader EuiPageHeaderSection
                                             EuiPageContent EuiPageContentHeader EuiPageContentBody
                                             EuiOverlayMask EuiConfirmModal
                                             EuiTitle)]))
 
 (re-frame/reg-sub
- ::view
+ ::subs.view
  (fn [db]
    (:view db)))
 (re-frame/reg-sub
- ::modal
+ ::subs.modal
  (fn [db]
    (:modal db)))
 
@@ -26,8 +27,8 @@
     [:h2 "Content title"]]])
 
 (defn main-panel []
-  (let [cur-route (re-frame/subscribe [::subs/view])
-        modal (re-frame/subscribe [::subs/modal])]
+  (let [cur-route (re-frame/subscribe [::subs.view])
+        modal (re-frame/subscribe [::subs.modal])]
     (fn []
       [:> EuiPage
        [:> EuiPageBody {:component "div"}
@@ -35,21 +36,8 @@
          [common-header]]
         [:> EuiPageContent
          [:> EuiPageContentHeader [page-header]]
-         [:> EuiPageContentBody [mycontent @cur-route]]]]
+         [:> EuiPageContentBody [routing/mycontent @cur-route]]]]
        (let [[has-modal modal-type] @modal]
          (when has-modal
            [:> EuiOverlayMask
-            [prompt-modal modal-type]]))])))
-
-; Not exactly base, but still common components
-
-; Temp event?
-(re-frame/reg-event-db
- ::close-modal
- (fn [db [_]]
-   (assoc-in db [:modal] [false nil])))
-
-(defn confrim-delete-modal []
-  [:> EuiConfirmModal {:title "Test" :onCancel #(re-frame/dispatch [::events/close-modal]) :onConfirm #(re-frame/dispatch [::events/close-modal])
-                       :cancelButtonText "Cancel" :confirmButtonText "Confirm" :buttonColor "danger" :defaultFocusedButton "cancel"}
-   [:p "Are you sure you want to delete?"]])
+            [routing/prompt-modal modal-type]]))])))

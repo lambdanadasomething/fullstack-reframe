@@ -3,16 +3,17 @@
             ["@elastic/eui" :refer (EuiText EuiButton EuiFieldText)]))
 
 (re-frame/reg-sub
- ::name
+ ::subs.name
  (fn [db]
    (:name db)))
+
 (re-frame/reg-event-db
- ::change-name
+ ::events.change-name
  (fn [db [_ name]]
    (assoc-in db [:name] name)))
 
 (defn welcome-panel []
-  (let [name (re-frame/subscribe [::subs/name])]
+  (let [name (re-frame/subscribe [::subs.name])]
     [:div
      [:> EuiText
       [:h1 "Hello world from " @name]
@@ -28,4 +29,4 @@
      [:> EuiButton {:href "mylink"} "List of things"]
      [:div
       [:> EuiFieldText {:id "myfield"}]
-      [:> EuiButton {:onClick #(re-frame/dispatch [::events/change-name (.-value (js/document.getElementById "myfield"))])} "Change name"]]]))
+      [:> EuiButton {:onClick #(re-frame/dispatch [::events.change-name (.-value (js/document.getElementById "myfield"))])} "Change name"]]]))

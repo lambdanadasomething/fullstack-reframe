@@ -1,11 +1,14 @@
 (ns crudy.init
-  (:require ["@elastic/eui/lib/components/icon/icon" :refer (appendIconComponentCache EuiIcon)]
-            ["@elastic/eui/es/components/icon/assets/beaker" :rename {icon EuiIconBeaker}]
-            ["@elastic/eui/es/components/icon/assets/arrow_down" :rename {icon EuiIconArrowDown}]
-            ["@elastic/eui/es/components/icon/assets/calendar" :rename {icon EuiIconCalendar}]
-            ["@elastic/eui/es/components/icon/assets/cross" :rename {icon EuiIconCross}]
-            ["@elastic/eui/es/components/icon/assets/pencil" :rename {icon EuiIconPencil}]
-            ["@elastic/eui/es/components/icon/assets/trash" :rename {icon EuiIconTrash}]))
+  (:require
+   [re-frame.core :as re-frame]
+   ;["@babel/polyfill"]
+   ["@elastic/eui/lib/components/icon/icon" :refer (appendIconComponentCache EuiIcon)]
+   ["@elastic/eui/es/components/icon/assets/beaker" :rename {icon EuiIconBeaker}]
+   ["@elastic/eui/es/components/icon/assets/arrow_down" :rename {icon EuiIconArrowDown}]
+   ["@elastic/eui/es/components/icon/assets/calendar" :rename {icon EuiIconCalendar}]
+   ["@elastic/eui/es/components/icon/assets/cross" :rename {icon EuiIconCross}]
+   ["@elastic/eui/es/components/icon/assets/pencil" :rename {icon EuiIconPencil}]
+   ["@elastic/eui/es/components/icon/assets/trash" :rename {icon EuiIconTrash}]))
 
 ; Official workaround for dynamic import in EuiIcon
 (appendIconComponentCache #js {"beaker" EuiIconBeaker
@@ -34,6 +37,6 @@
    :name "re-frame"})
 
 (re-frame/reg-event-db
- ::initialize-db
+ ::events.initialize-db
  (fn [_ _]
    default-db))

@@ -3,9 +3,9 @@
    [reagent.core :as reagent]
    [reagent.dom :as rdom]
    [re-frame.core :as re-frame]
-   [crudy.events :as events]
-   [crudy.views :as views]
    [crudy.config :as config]
+   [crudy.init :as init]
+   [crudy.base :as base]
    ))
 
 
@@ -17,9 +17,9 @@
   (re-frame/clear-subscription-cache!)
   (let [root-el (.getElementById js/document "app")]
     (rdom/unmount-component-at-node root-el)
-    (rdom/render [views/main-panel] root-el)))
+    (rdom/render [base/main-panel] root-el)))
 
 (defn init []
-  (re-frame/dispatch-sync [::events/initialize-db])
+  (re-frame/dispatch-sync [::init/events.initialize-db])
   (dev-setup)
   (mount-root))
