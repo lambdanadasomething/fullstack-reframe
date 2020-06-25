@@ -1,6 +1,7 @@
 (ns crudy.subs
   (:require
-   [re-frame.core :as re-frame]))
+   [re-frame.core :as re-frame]
+   [crudy.util :as util]))
 
 (re-frame/reg-sub
  ::name
@@ -12,13 +13,10 @@
  (fn [db]
    (get-in db [:data :things])))
 
-(defn maptize [seq k]
-  (map #(assoc {} k %) seq))
-
 (re-frame/reg-sub
  ::tags
  (fn [db]
-   (maptize (get-in db [:data :tags]) :label)))
+   (util/maptize (get-in db [:data :tags]) :label)))
 
 (re-frame/reg-sub
  ::view

@@ -17,7 +17,8 @@
                                      EuiConfirmModal EuiOverlayMask)]
    [accountant.core :as accountant]
    [secretary.core :as secretary :refer-macros [defroute]]
-   [reagent.core :as rc]))
+   [reagent.core :as rc]
+   [crudy.util :as util]))
 
 (appendIconComponentCache #js {"beaker" EuiIconBeaker 
                                "arrowDown" EuiIconArrowDown
@@ -58,8 +59,6 @@
       [:> EuiButton {:onClick #(re-frame/dispatch [::events/change-name (.-value (js/document.getElementById "myfield"))])} "Change name"]]
      ]))
 
-(defn extract-id [list id]
-  (map #(get % id) (js->clj list)))
 
 (defn list-things-content []
   (let [myitems (re-frame/subscribe [::subs/things])
@@ -77,7 +76,7 @@
      [:h1 "List of things"]
      [:p (str @selected-items)]
      [:> EuiBasicTable {:items @myitems :columns cols :itemId "id" 
-                        :selection {:onSelectionChange (fn [x] (re-frame/dispatch [::events/list-things-table-select (extract-id x "id")]))}}]
+                        :selection {:onSelectionChange (fn [x] (re-frame/dispatch [::events/list-things-table-select (util/extract-id x "id")]))}}]
      [:> EuiButton {:href "/"} "Go back"]]))
 
 (defn search-things-widget []
