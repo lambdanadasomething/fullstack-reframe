@@ -1,0 +1,31 @@
+(ns crudy.welcome
+  (:require [re-frame.core :as re-frame]
+            ["@elastic/eui" :refer (EuiText EuiButton EuiFieldText)]))
+
+(re-frame/reg-sub
+ ::name
+ (fn [db]
+   (:name db)))
+(re-frame/reg-event-db
+ ::change-name
+ (fn [db [_ name]]
+   (assoc-in db [:name] name)))
+
+(defn welcome-panel []
+  (let [name (re-frame/subscribe [::subs/name])]
+    [:div
+     [:> EuiText
+      [:h1 "Hello world from " @name]
+      [:p "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."]
+      [:h2 "Another subtitle"]
+      [:ul
+       [:li "Item one"]
+       [:li "Item two"]
+       [:li "Item three"]
+       [:li "Supply imported icon as type attr" [:> EuiIcon {:type EuiIconBeaker}]]
+       [:li "Use imported icon directly" [:> EuiIconBeaker]]
+       [:li "Use name as type attr" [:> EuiIcon {:type "beaker"}]]]]
+     [:> EuiButton {:href "mylink"} "List of things"]
+     [:div
+      [:> EuiFieldText {:id "myfield"}]
+      [:> EuiButton {:onClick #(re-frame/dispatch [::events/change-name (.-value (js/document.getElementById "myfield"))])} "Change name"]]]))

@@ -2,6 +2,11 @@
   (:require [accountant.core :as accountant]
             [secretary.core :as secretary :refer-macros [defroute]]))
 
+(re-frame/reg-event-db
+ ::change-view
+ (fn [db [_ view param]]
+   (assoc-in db [:view] view)))
+
 (defroute "/" []
   (re-frame/dispatch [::events/change-view :welcome]))
 

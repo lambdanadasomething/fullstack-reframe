@@ -4,13 +4,6 @@
    [re-frame.core :as re-frame]
    [crudy.subs :as subs]
    [crudy.events :as events]
-   ["@elastic/eui/lib/components/icon/icon" :refer (appendIconComponentCache EuiIcon)]
-   ["@elastic/eui/es/components/icon/assets/beaker" :rename {icon EuiIconBeaker}]
-   ["@elastic/eui/es/components/icon/assets/arrow_down" :rename {icon EuiIconArrowDown}]
-   ["@elastic/eui/es/components/icon/assets/calendar" :rename {icon EuiIconCalendar}]
-   ["@elastic/eui/es/components/icon/assets/cross" :rename {icon EuiIconCross}]
-   ["@elastic/eui/es/components/icon/assets/pencil" :rename {icon EuiIconPencil}]
-   ["@elastic/eui/es/components/icon/assets/trash" :rename {icon EuiIconTrash}]
    ["@elastic/eui" :refer (EuiButton EuiText EuiFieldText EuiPage EuiPageBody EuiPageContent EuiPageContentBody
                                      EuiPageContentHeader EuiPageContentHeaderSection EuiPageHeader EuiPageHeaderSection EuiTitle
                                      EuiBasicTable EuiBadge EuiForm EuiDatePicker EuiComboBox EuiPanel EuiSpacer
@@ -18,35 +11,11 @@
    [reagent.core :as rc]
    [crudy.util :as util]))
 
-(appendIconComponentCache #js {"beaker" EuiIconBeaker 
-                               "arrowDown" EuiIconArrowDown
-                               "calendar" EuiIconCalendar
-                               "cross" EuiIconCross
-                               "pencil" EuiIconPencil
-                               "trash" EuiIconTrash})
-;(js/console.log appendIconComponentCache)
 
 
 
-(defn welcome-panel []
-  (let [name (re-frame/subscribe [::subs/name])]
-    [:div
-     [:> EuiText
-      [:h1 "Hello world from " @name]
-      [:p "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."]
-      [:h2 "Another subtitle"]
-      [:ul
-       [:li "Item one"]
-       [:li "Item two"]
-       [:li "Item three"]
-       [:li "Supply imported icon as type attr" [:> EuiIcon {:type EuiIconBeaker}]]
-       [:li "Use imported icon directly" [:> EuiIconBeaker]]
-       [:li "Use name as type attr" [:> EuiIcon {:type "beaker"}]]]]
-     [:> EuiButton {:href "mylink"} "List of things"]
-     [:div
-      [:> EuiFieldText {:id "myfield"}]
-      [:> EuiButton {:onClick #(re-frame/dispatch [::events/change-name (.-value (js/document.getElementById "myfield"))])} "Change name"]]
-     ]))
+
+
 
 
 (defn list-things-content []

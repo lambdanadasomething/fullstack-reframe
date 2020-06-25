@@ -5,6 +5,15 @@
                                             EuiOverlayMask EuiConfirmModal
                                             EuiTitle)]))
 
+(re-frame/reg-sub
+ ::view
+ (fn [db]
+   (:view db)))
+(re-frame/reg-sub
+ ::modal
+ (fn [db]
+   (:modal db)))
+
 
 (defn common-header []
   [:> EuiPageHeaderSection
@@ -33,6 +42,12 @@
             [prompt-modal modal-type]]))])))
 
 ; Not exactly base, but still common components
+
+; Temp event?
+(re-frame/reg-event-db
+ ::close-modal
+ (fn [db [_]]
+   (assoc-in db [:modal] [false nil])))
 
 (defn confrim-delete-modal []
   [:> EuiConfirmModal {:title "Test" :onCancel #(re-frame/dispatch [::events/close-modal]) :onConfirm #(re-frame/dispatch [::events/close-modal])
