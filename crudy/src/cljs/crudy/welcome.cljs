@@ -1,6 +1,8 @@
 (ns crudy.welcome
   (:require [re-frame.core :as re-frame]
-            ["@elastic/eui" :refer (EuiText EuiButton EuiFieldText)]))
+            ["@elastic/eui" :refer (EuiText EuiButton EuiFieldText)]
+            ["@elastic/eui/lib/components/icon/icon" :refer (EuiIcon)]
+            ["@elastic/eui/es/components/icon/assets/beaker" :rename {icon EuiIconBeaker}]))
 
 (re-frame/reg-sub
  ::subs.name

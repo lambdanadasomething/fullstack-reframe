@@ -3,7 +3,8 @@
             [reagent.core :as rc]
             [crudy.util :as util]
             ["@elastic/eui" :refer (EuiPanel EuiSpacer EuiBasicTable
-                                             EuiForm EuiFieldText EuiDatePicker EuiComboBox EuiButton)]))
+                                             EuiForm EuiFieldText EuiDatePicker EuiComboBox EuiButton
+                                             EuiBadge)]))
 
 (re-frame/reg-event-db
  ::events.list-things-table-select

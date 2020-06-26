@@ -1,7 +1,9 @@
 (ns crudy.routing
-  (:require [accountant.core :as accountant]
+  (:require [re-frame.core :as re-frame]
+            [accountant.core :as accountant]
             [secretary.core :as secretary :refer-macros [defroute]]
-            [crudy.welcome :as welcome]
+            ["@elastic/eui" :refer (EuiConfirmModal)] ;temporary until we figure out where to put the modal
+            [crudy.welcome :refer [welcome-panel]]
             [crudy.list-things :as list-things]))
 
 (re-frame/reg-event-db
@@ -26,7 +28,7 @@
 
 (defn mycontent [route]
   (case route
-    :welcome     [welcome/welcome-panel]
+    :welcome     [welcome-panel]
     :list-things [list-things/list-things-panel]
     :not-found   [not-found-panel]
     [:div]))
