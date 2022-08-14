@@ -2,6 +2,7 @@
   (:require [re-frame.core :as re-frame]
             [reagent.core :as rc]
             [crudy.util :as util]
+            [reitit.frontend.easy :as rfe]
             ["@elastic/eui" :refer (EuiPanel EuiSpacer EuiBasicTable
                                              EuiForm EuiFieldText EuiDatePicker EuiComboBox EuiButton
                                              EuiBadge)]))
@@ -48,7 +49,7 @@
      [:p (str @selected-items)]
      [:> EuiBasicTable {:items @myitems :columns cols :itemId "id"
                         :selection {:onSelectionChange (fn [x] (re-frame/dispatch [::events.list-things-table-select (util/extract-id x "id")]))}}]
-     [:> EuiButton {:href "/"} "Go back"]]))
+     [:> EuiButton {:href (rfe/href :page/welcome)} "Go back"]]))
 
 (defn search-things-widget []
   (let [opt (re-frame/subscribe [::subs.tags])]

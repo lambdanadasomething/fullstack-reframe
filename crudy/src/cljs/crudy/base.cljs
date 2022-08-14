@@ -9,7 +9,7 @@
 (re-frame/reg-sub
  ::subs.view
  (fn [db]
-   (:view db)))
+   (get-in db [:view :data :name])))
 (re-frame/reg-sub
  ::subs.modal
  (fn [db]

@@ -2,6 +2,8 @@
   (:require [re-frame.core :as re-frame]
             [accountant.core :as accountant]
             [secretary.core :as secretary :refer-macros [defroute]]
+            [reitit.frontend :as rf]
+            [reitit.frontend.easy :as rfe]
             ["@elastic/eui" :refer (EuiConfirmModal)] ;temporary until we figure out where to put the modal
             [crudy.welcome :refer [welcome-panel]]
             [crudy.list-things :as list-things]))
@@ -11,15 +13,14 @@
  (fn [db [_ view param]]
    (assoc-in db [:view] view)))
 
-(defroute "/" []
-  (re-frame/dispatch [::events.change-view :welcome]))
+(def route
+  [["/" {:name :page/welcome}]
+   ["/mylink" {:name :page/list-things}]])
 
-(defroute "/mylink" []
-  (re-frame/dispatch [::events.change-view :list-things]))
-
-(accountant/configure-navigation!
- {:nav-handler   (fn [path] (secretary/dispatch! path))
-  :path-exists?  (fn [path] true)})
+(rfe/start!
+ (rf/router route)
+ (fn [m] (re-frame/dispatch [::events.change-view m]))
+ {:use-fragment false})
 
 (defn not-found-panel []
   [:div
@@ -28,9 +29,9 @@
 
 (defn mycontent [route]
   (case route
-    :welcome     [welcome-panel]
-    :list-things [list-things/list-things-panel]
-    :not-found   [not-found-panel]
+    :page/welcome     [welcome-panel]
+    :page/list-things [list-things/list-things-panel]
+    :page/not-found   [not-found-panel]
     [:div]))
 
 ; Not exactly base, but still common components

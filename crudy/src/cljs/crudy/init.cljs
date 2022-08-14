@@ -23,7 +23,7 @@
 (def default-db
   {:path "/"
    ;:view [:list-things]
-   :view :welcome
+   :view {:data {:name :page/welcome}}
    :state {}
    :modal [false nil]
    :data {:things [{:id 1 :user-name "Foo" :stat 53 :attr ["twit" "goog"]}

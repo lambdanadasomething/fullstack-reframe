@@ -8,7 +8,8 @@
                  [reagent "0.10.0"]
                  [re-frame "0.12.0"]
                  [venantius/accountant "0.2.5"]
-                 [clj-commons/secretary "1.2.4"]]
+                 [clj-commons/secretary "1.2.4"]
+                 [metosin/reitit "0.5.18"]]
 
   :plugins [[lein-shadow "0.1.7"]
             
