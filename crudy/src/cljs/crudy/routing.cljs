@@ -1,7 +1,5 @@
 (ns crudy.routing
   (:require [re-frame.core :as re-frame]
-            [accountant.core :as accountant]
-            [secretary.core :as secretary :refer-macros [defroute]]
             [reitit.frontend :as rf]
             [reitit.frontend.easy :as rfe]
             ["@elastic/eui" :refer (EuiConfirmModal)] ;temporary until we figure out where to put the modal

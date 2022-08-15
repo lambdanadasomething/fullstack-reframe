@@ -2,9 +2,10 @@
   (:require [re-frame.core :as re-frame]
             [crudy.routing :as routing]
             ["@elastic/eui" :refer (EuiPage EuiPageBody EuiPageHeader EuiPageHeaderSection
-                                            EuiPageContent EuiPageContentHeader EuiPageContentBody
+                                            EuiPageSection EuiPageSectionHeader EuiPageContentBody
                                             EuiOverlayMask EuiConfirmModal
-                                            EuiTitle)]))
+                                            EuiTitle
+                                            EuiProvider)]))
 
 (re-frame/reg-sub
  ::subs.view
@@ -30,14 +31,28 @@
   (let [cur-route (re-frame/subscribe [::subs.view])
         modal (re-frame/subscribe [::subs.modal])]
     (fn []
-      [:> EuiPage
-       [:> EuiPageBody {:component "div"}
-        [:> EuiPageHeader
-         [common-header]]
-        [:> EuiPageContent
-         [:> EuiPageContentHeader [page-header]]
-         [:> EuiPageContentBody [routing/mycontent @cur-route]]]]
-       (let [[has-modal modal-type] @modal]
-         (when has-modal
-           [:> EuiOverlayMask
-            [routing/prompt-modal modal-type]]))])))
+      [:> EuiProvider {:colorMode "light"}
+       [:> EuiPage
+        [:> EuiPageBody {:component "div"}
+         [:> EuiPageHeader 
+          [common-header]]
+         [:> EuiPageSection
+          [page-header]
+          [routing/mycontent @cur-route]]]
+        (let [[has-modal modal-type] @modal]
+          (when has-modal
+            [:> EuiOverlayMask
+             [routing/prompt-modal modal-type]]))]]
+      )))
+
+;[:> EuiPage
+; [:> EuiPageBody {:component "div"}
+;  [:> EuiPageHeader
+;   [common-header]]
+;  [:> EuiPageContent
+;   [:> EuiPageContentHeader [page-header]]
+;   [:> EuiPageContentBody [routing/mycontent @cur-route]]]]
+; (let [[has-modal modal-type] @modal]
+;   (when has-modal
+;     [:> EuiOverlayMask
+;      [routing/prompt-modal modal-type]]))]

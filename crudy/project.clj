@@ -1,17 +1,14 @@
 (defproject crudy "0.1.0-SNAPSHOT"
-  :dependencies [[org.clojure/clojure "1.10.1"]
-                 [org.clojure/clojurescript "1.10.758"
-                  :exclusions [com.google.javascript/closure-compiler-unshaded
-                               org.clojure/google-closure-library
-                               org.clojure/google-closure-library-third-party]]
-                 [thheller/shadow-cljs "2.9.0"]
-                 [reagent "0.10.0"]
-                 [re-frame "0.12.0"]
-                 [venantius/accountant "0.2.5"]
-                 [clj-commons/secretary "1.2.4"]
-                 [metosin/reitit "0.5.18"]]
+  :dependencies [[org.clojure/clojure "1.11.1"]
+                 [org.clojure/clojurescript "1.11.60"]
+                 [thheller/shadow-cljs "2.19.9"]
+                 [reagent "1.1.1"]
+                 [re-frame "1.3.0-rc3"]
+                 [metosin/reitit "0.5.18"]
+                 [macchiato/core "0.2.22"]
+                 [com.taoensso/timbre "5.2.1"]]
 
-  :plugins [[lein-shadow "0.1.7"]
+  :plugins [[lein-shadow "0.4.0"]
             
             [lein-shell "0.5.0"]]
 
