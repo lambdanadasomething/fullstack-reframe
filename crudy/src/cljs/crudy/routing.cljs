@@ -15,10 +15,12 @@
   [["/" {:name :page/welcome}]
    ["/mylink" {:name :page/list-things}]])
 
-(rfe/start!
- (rf/router route)
- (fn [m] (re-frame/dispatch [::events.change-view m]))
- {:use-fragment false})
+(defn start-fe-router []
+  (rfe/start!
+   (rf/router route)
+   (fn [m] (re-frame/dispatch [::events.change-view m]))
+   {:use-fragment false}))
+
 
 (defn not-found-panel []
   [:div

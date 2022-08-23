@@ -2,6 +2,7 @@
   (:require
    [reagent.core :as reagent]
    [reagent.dom :as rdom]
+   [reagent.dom.server :as rsdom]
    [re-frame.core :as re-frame]
    [crudy.config :as config]
    [crudy.init :as init]
@@ -23,3 +24,25 @@
   (re-frame/dispatch-sync [::init/events.initialize-db])
   (dev-setup)
   (mount-root))
+
+(defn ssr-init []
+  (re-frame/dispatch-sync [::init/events.initialize-db])
+  (re-frame/clear-subscription-cache!)
+  (rsdom/render-to-string [base/main-panel]))
+
+;crudy.welcome/welcome-panel
+
+(ssr-init)
+
+
+; SSR Trouble so far:
+; 1) Dynamic import: repeatedly importing the same ns eventually makes
+; this goes away
+; 2) Reitit Routing 1: When using reitit's "easy" frontend integration,
+; We didn't put it into re-frame's effect system...
+; 3) Reitit Routing 2: reitit's easy frontend, href function only works
+; in the browser env. We can use plain reitit for backend reverse
+; routing.
+; 3a) However, this implies that we need a way to detect current target
+; at runtime.
+

@@ -6,7 +6,9 @@
                  [re-frame "1.3.0-rc3"]
                  [metosin/reitit "0.5.18"]
                  [macchiato/core "0.2.22"]
-                 [com.taoensso/timbre "5.2.1"]]
+                 [com.taoensso/timbre "5.2.1"]
+                 [com.github.pkpkpk/cljs-node-io "2.0.332"]
+                 [macchiato/hiccups "0.4.1"]]
 
   :plugins [[lein-shadow "0.4.0"]
             

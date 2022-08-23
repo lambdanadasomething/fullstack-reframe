@@ -1,6 +1,6 @@
 (ns crudy.welcome
   (:require [re-frame.core :as re-frame]
-            [reitit.frontend.easy :as rfe]
+            [crudy.href :refer [href]]
             ["@elastic/eui" :refer (EuiText EuiButton EuiFieldText)]
             ["@elastic/eui/lib/components/icon/icon" :refer (EuiIcon)]
             ["@elastic/eui/es/components/icon/assets/beaker" :rename {icon EuiIconBeaker}]))
@@ -27,9 +27,9 @@
        [:li "Item two"]
        [:li "Item three"]
        [:li "Supply imported icon as type attr" [:> EuiIcon {:type EuiIconBeaker}]]
-       [:li "Use imported icon directly" [:> EuiIconBeaker]]
+       ;[:li "Use imported icon directly" [:> EuiIconBeaker]]
        [:li "Use name as type attr" [:> EuiIcon {:type "beaker"}]]]]
-     [:> EuiButton {:href (rfe/href :page/list-things)} "List of things"]
+     [:> EuiButton {:href (href :page/list-things)} "List of things"]
      [:div
       [:> EuiFieldText {:id "myfield"}]
       [:> EuiButton {:onClick #(re-frame/dispatch [::events.change-name (.-value (js/document.getElementById "myfield"))])} "Change name"]]]))
