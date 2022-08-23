@@ -45,4 +45,6 @@
 ; routing.
 ; 3a) However, this implies that we need a way to detect current target
 ; at runtime.
+; 4) Out of the three form of using EUI icons, the 2nd method (direct)
+; Doesn't work.
 
