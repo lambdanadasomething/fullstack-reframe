@@ -7,6 +7,7 @@
    [crudy.config :as config]
    [crudy.init :as init]
    [crudy.view.base :as base]
+   [crudy.routing :as routing]
    ))
 
 
@@ -22,6 +23,7 @@
 
 (defn init []
   (re-frame/dispatch-sync [::init/events.initialize-db])
+  (re-frame/dispatch-sync [::routing/events.initialize-router])
   (dev-setup)
   (mount-root))
 

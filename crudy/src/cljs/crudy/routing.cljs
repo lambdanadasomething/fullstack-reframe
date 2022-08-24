@@ -20,6 +20,12 @@
    (fn [m] (re-frame/dispatch [::events.change-view m]))
    {:use-fragment false}))
 
+(re-frame/reg-event-db
+ ::events.initialize-router
+ (fn [db _]
+   (do
+     (start-fe-router)
+     db)))
 
 (defn not-found-panel []
   [:div
