@@ -1,4 +1,4 @@
-(ns crudy.href
+(ns crudy.routing.href
   (:require [reitit.core :as reitit]
             [reitit.frontend.easy :as rfe]))
 

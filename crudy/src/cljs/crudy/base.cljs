@@ -1,6 +1,7 @@
 (ns crudy.base
   (:require [re-frame.core :as re-frame]
             [crudy.routing :as routing]
+            [crudy.component.modal :as modal]
             ["@elastic/eui" :refer (EuiPage EuiPageBody EuiPageHeader EuiPageHeaderSection
                                             EuiPageSection EuiPageSectionHeader EuiPageContentBody
                                             EuiOverlayMask EuiConfirmModal
@@ -42,7 +43,7 @@
         (let [[has-modal modal-type] @modal]
           (when has-modal
             [:> EuiOverlayMask
-             [routing/prompt-modal modal-type]]))]]
+             [modal/prompt-modal modal-type]]))]]
       )))
 
 ;[:> EuiPage

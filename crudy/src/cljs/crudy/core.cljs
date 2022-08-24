@@ -40,7 +40,7 @@
 ; this goes away
 ; 2) Reitit Routing 1: When using reitit's "easy" frontend integration,
 ; We didn't put it into re-frame's effect system...
-; 3) Reitit Routing 2: reitit's easy frontend, href function only works
+; 3) Reitit Routing 2: reitit's easy fronternd, href function only works
 ; in the browser env. We can use plain reitit for backend reverse
 ; routing.
 ; 3a) However, this implies that we need a way to detect current target

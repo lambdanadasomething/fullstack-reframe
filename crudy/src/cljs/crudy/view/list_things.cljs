@@ -1,8 +1,8 @@
-(ns crudy.list-things
+(ns crudy.view.list-things
   (:require [re-frame.core :as re-frame]
             [reagent.core :as rc]
             [crudy.util :as util]
-            [crudy.href :refer [href]]
+            [crudy.routing.href :refer [href]]
             ["@elastic/eui" :refer (EuiPanel EuiSpacer EuiBasicTable
                                              EuiForm EuiFieldText EuiDatePicker EuiComboBox EuiButton
                                              EuiBadge)]))

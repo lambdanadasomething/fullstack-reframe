@@ -1,6 +1,6 @@
-(ns crudy.welcome
+(ns crudy.view.welcome
   (:require [re-frame.core :as re-frame]
-            [crudy.href :refer [href]]
+            [crudy.routing.href :refer [href]]
             ["@elastic/eui" :refer (EuiText EuiButton EuiFieldText)]
             ["@elastic/eui/lib/components/icon/icon" :refer (EuiIcon)]
             ["@elastic/eui/es/components/icon/assets/beaker" :rename {icon EuiIconBeaker}]))
