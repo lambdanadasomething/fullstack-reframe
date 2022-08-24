@@ -36,10 +36,11 @@
                                :asset-path "/js/compiled"
                                :modules {:app {:init-fn crudy.entry.core/init
                                                :preloads [devtools.preload]}} 
-                               :devtools {;:http-root ["resources/public" "node_modules/@elastic/eui/es/components/icons/"]
-                                          ;:http-port 8280
-                                          :devtools-url ~(clojure.string/trim-newline (clojure.string/replace (:out (clojure.java.shell/sh "gp" "url")) "https://" "https://5050-"))
-                                          }}
+                               ;:devtools {;:http-root ["resources/public" "node_modules/@elastic/eui/es/components/icons/"]
+                               ;           ;:http-port 8280
+                               ;           :devtools-url ~(clojure.string/trim-newline (clojure.string/replace (:out (clojure.java.shell/sh "gp" "url")) "https://" "https://5050-"))
+                               ;           }
+                               }
                          :ssr {:target :node-script
                                :main crudy.entry.server/main
                                :output-to "out/crudy/script.js"
