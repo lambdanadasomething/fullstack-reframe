@@ -34,6 +34,7 @@
                 :builds {:app {:target :browser
                                :output-dir "resources/public/js/compiled"
                                :asset-path "/js/compiled"
+                               :closure-defines {crudy.config/PLATFORM "BROWSER"}
                                :modules {:app {:init-fn crudy.entry.core/init
                                                :preloads [devtools.preload]}} 
                                ;:devtools {;:http-root ["resources/public" "node_modules/@elastic/eui/es/components/icons/"]
@@ -44,6 +45,7 @@
                          :ssr {:target :node-script
                                :main crudy.entry.server/main
                                :output-to "out/crudy/script.js"
+                               :closure-defines {crudy.config/PLATFORM "SERVER"}
                                :devtools {:before-load crudy.entry.server/stop!
                                           :after-load crudy.entry.server/start!}}}}
 

@@ -1,6 +1,7 @@
 (ns crudy.routing.href
   (:require [reitit.core :as reitit]
-            [reitit.frontend.easy :as rfe]))
+            [reitit.frontend.easy :as rfe]
+            [crudy.config :refer [PLATFORM]]))
 
 (def route
   [["/" {:name :page/welcome}]
@@ -13,9 +14,9 @@
       (reitit/match-by-name page) 
       (reitit/match->path)))
 
-(def server? true)
+;(def server? true)
 
 (defn href [page]
-  (if server?
+  (if (= PLATFORM "SERVER")
     (server-href page)
     (rfe/href page)))
