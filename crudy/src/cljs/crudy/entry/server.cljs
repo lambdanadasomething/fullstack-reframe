@@ -1,4 +1,4 @@
-(ns crudy.server
+(ns crudy.entry.server
   (:require-macros [hiccups.core :as hiccups :refer [html]])
   (:require [cljs-node-io.core :as io :refer [slurp spit]]
             [macchiato.server :as http]
@@ -9,7 +9,7 @@
             [reagent.core :as reagent]
             [reagent.dom.server :as rdom]
             ;[crudy.base :as base]
-            [crudy.core :as crudy]
+            [crudy.entry.core :as crudy]
             [crudy.routing :refer [route]]
             [reitit.ring :as ring]
             [macchiato.middleware.params :as params]

@@ -1,4 +1,4 @@
-(ns crudy.base
+(ns crudy.view.base
   (:require [re-frame.core :as re-frame]
             [crudy.routing :as routing]
             [crudy.component.modal :as modal]

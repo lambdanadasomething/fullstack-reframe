@@ -28,22 +28,23 @@
   :shadow-cljs {:nrepl {:port 8777}
                 :dev-http {8280 ["resources/public" "node_modules/@elastic/eui/es/components/icons/"]}
                 ;:ssl {}
+                :http {:port 9630
+                       :host "0.0.0.0"}
                 
                 :builds {:app {:target :browser
                                :output-dir "resources/public/js/compiled"
                                :asset-path "/js/compiled"
-                               :modules {:app {:init-fn crudy.core/init
-                                               :preloads [devtools.preload]}}
-
+                               :modules {:app {:init-fn crudy.entry.core/init
+                                               :preloads [devtools.preload]}} 
                                :devtools {;:http-root ["resources/public" "node_modules/@elastic/eui/es/components/icons/"]
                                           ;:http-port 8280
                                           :devtools-url ~(clojure.string/trim-newline (clojure.string/replace (:out (clojure.java.shell/sh "gp" "url")) "https://" "https://5050-"))
                                           }}
                          :ssr {:target :node-script
-                               :main crudy.server/main
+                               :main crudy.entry.server/main
                                :output-to "out/crudy/script.js"
-                               :devtools {:before-load-async crudy.server/stop!
-                                          :after-load-async crudy.server/start!}}}}
+                               :devtools {:before-load crudy.entry.server/stop!
+                                          :after-load crudy.entry.server/start!}}}}
 
   :aliases {"dev"          ["with-profile" "dev" "do"
                             ["shadow" "watch" "app" "ssr"]]

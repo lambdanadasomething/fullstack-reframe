@@ -1,4 +1,4 @@
-(ns crudy.core
+(ns crudy.entry.core
   (:require
    [reagent.core :as reagent]
    [reagent.dom :as rdom]
@@ -6,7 +6,7 @@
    [re-frame.core :as re-frame]
    [crudy.config :as config]
    [crudy.init :as init]
-   [crudy.base :as base]
+   [crudy.view.base :as base]
    ))
 
 
