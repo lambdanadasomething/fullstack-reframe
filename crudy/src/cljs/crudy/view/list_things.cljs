@@ -32,13 +32,15 @@
  (fn [db]
    (get-in db [:state :things :selected])))
 
+; https://github.com/elastic/eui/issues/4836
+; "secondary" is replaced by "success"
 (defn list-things-content []
   (let [myitems (re-frame/subscribe [::subs.things])
         cols [{:field "id" :name "UID"}
               {:field "user-name" :name "User Name"}
               {:field "stat" :name "Statistics"}
               {:field "attr" :name "Attributes" :render (fn [xs] (rc/as-element (for [x xs]
-                                                                                  ^{:key x} [:> EuiBadge {:color "secondary"} x])))}
+                                                                                  ^{:key x} [:> EuiBadge {:color "success"} x])))}
               {:name "Actions" :actions [{:name "Edit"   :description "Edit this item"   :icon "pencil" :type "icon"
                                           :href "https://www.google.com"}
                                          {:name "Delete" :description "Delete this item" :icon "trash"  :type "icon"
