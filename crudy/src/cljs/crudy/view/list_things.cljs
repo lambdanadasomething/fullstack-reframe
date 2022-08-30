@@ -13,10 +13,10 @@
    (assoc-in db [:state :things :selected] selected)))
 
 (re-frame/reg-event-db
- ::events.list-things-delete
+ ::events.list-things-action
  (fn [db [_ thing]]
    (println thing)
-   (assoc-in db [:modal] [true :confirm-delete thing])))
+   (assoc-in db [:modal] [true (:action thing) thing])))
 
 (re-frame/reg-sub
  ::subs.things
@@ -33,6 +33,13 @@
  (fn [db]
    (get-in db [:state :things :selected])))
 
+(defn user-action [action]
+  (fn [user] (re-frame/dispatch [::events.list-things-action
+                                 {:type :user,
+                                  :action action
+                                  :obj (js->clj user
+                                                :keywordize-keys true)}])))
+
 ; https://github.com/elastic/eui/issues/4836
 ; "secondary" is replaced by "success"
 (defn list-things-content []
@@ -43,12 +50,9 @@
               {:field "attr" :name "Attributes" :render (fn [xs] (rc/as-element (for [x xs]
                                                                                   ^{:key x} [:> EuiBadge {:color "success"} x])))}
               {:name "Actions" :actions [{:name "Edit"   :description "Edit this item"   :icon "pencil" :type "icon"
-                                          :href "https://www.google.com"}
+                                          :onClick (user-action :edit-user)}
                                          {:name "Delete" :description "Delete this item" :icon "trash"  :type "icon"
-                                          :onClick (fn [x] (re-frame/dispatch [::events.list-things-delete 
-                                                                               {:type :user,
-                                                                                :obj (js->clj x 
-                                                                                              :keywordize-keys true)}]))}]}]
+                                          :onClick (user-action :confirm-delete)}]}]
         selected-items (re-frame/subscribe [::subs.list-things-selected])]
     [:div
      [:h1 "List of things"]

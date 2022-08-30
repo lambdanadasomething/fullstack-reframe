@@ -1,5 +1,6 @@
 (ns crudy.component.modal
   (:require [re-frame.core :as re-frame]
+            [crudy.component.form-modal :as form-modal]
             ["@elastic/eui" :refer (EuiConfirmModal)]))
 
 ; Temp event?
@@ -33,4 +34,5 @@
 (defn prompt-modal [type arg]
   (case type
     :confirm-delete [confrim-delete-modal arg]
+    :edit-user [form-modal/temp-edit-modal arg]
     [:div [:p "Opps..."]]))
