@@ -16,6 +16,17 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+    - name: Setup Java
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'corretto'
+        java-version: '11'
+    - name: Install clojure tools
+      uses: DeLaGuardo/setup-clojure@9.5
+      with:
+        lein: 2.9.8
+    - name: Get leiningen version
+      run: lein -v
     - name: Install dependencies
       working-directory: ./crudy
       run: lein deps
