@@ -4,10 +4,15 @@ on:
   push:
     branches: [ "master" ]
 
+permissions:
+  contents: write
+
 jobs:
   build:
 
     runs-on: ubuntu-latest
+    
+    concurrency: ci-${{ github.ref }}
 
     steps:
     - uses: actions/checkout@v3
@@ -20,3 +25,13 @@ jobs:
     - name: Production build with lein-shadow
       working-directory: ./crudy
       run: lein prod
+    - name: Copy static assets
+      working-directory: ./crudy
+      run: |
+        mkdir prod
+        cp -r node_modules/@elastic/eui/es/components/icon/* prod/
+        cp -r resources/public/* prod/
+    - name: Deploy 🚀
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        folder: crudy/prod
