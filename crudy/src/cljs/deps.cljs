@@ -18,6 +18,7 @@
                 "xregexp" "^5.1.1",
 
                 "@emotion/react" "^11.10.0"
-                "prop-types" "^15.8.1"}
+                "prop-types" "^15.8.1"
+                "shadow-cljs"           "2.19.9"}
  :npm-dev-deps {"shadow-cljs"           "2.19.9",
                 "source-map-support" "^0.5.21"}}
