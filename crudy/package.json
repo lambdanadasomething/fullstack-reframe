@@ -4,7 +4,7 @@
     "@babel/polyfill": "7.12.1",
     "@elastic/datemath": "5.0.3",
     "@elastic/eui": "63.0.0",
-    "@emotion/react": "11.10.0",
+    "@emotion/react": "11.10.4",
     "concat-stream": "2.0.0",
     "content-type": "1.0.4",
     "cookies": "0.8.0",

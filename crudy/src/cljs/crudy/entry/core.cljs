@@ -8,6 +8,7 @@
    [crudy.init :as init]
    [crudy.view.base :as base]
    [crudy.routing :as routing]
+   [crudy.macros :refer-macros [code-for-browser code-for-nodejs]]
    ))
 
 
@@ -21,20 +22,22 @@
     (rdom/unmount-component-at-node root-el)
     (rdom/render [base/main-panel] root-el)))
 
-(defn init []
-  (re-frame/dispatch-sync [::init/events.initialize-db])
-  (re-frame/dispatch-sync [::routing/events.initialize-router])
-  (dev-setup)
-  (mount-root))
+(code-for-browser
+ (defn init []
+   (re-frame/dispatch-sync [::init/events.initialize-db])
+   (re-frame/dispatch-sync [::routing/events.initialize-router])
+   (dev-setup)
+   (mount-root)))
 
-(defn ssr-init []
-  (re-frame/dispatch-sync [::init/events.initialize-db])
-  (re-frame/clear-subscription-cache!)
-  (rsdom/render-to-string [base/main-panel]))
+(code-for-nodejs
+ (defn ssr-init []
+   (re-frame/dispatch-sync [::init/events.initialize-db])
+   (re-frame/clear-subscription-cache!)
+   (rsdom/render-to-string [base/main-panel])))
 
 ;crudy.welcome/welcome-panel
 
-(ssr-init)
+;(ssr-init)
 
 
 ; SSR Trouble so far:
