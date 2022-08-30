@@ -10,13 +10,16 @@
  (fn [db [_ view param]]
    (assoc-in db [:view] view)))
 
-(def route
-  [["/" {:name :page/welcome}]
-   ["/mylink" {:name :page/list-things}]])
+(defn route [base]
+  (let [routes [["/" {:name :page/welcome}]
+                ["/mylink" {:name :page/list-things}]]]
+    (if (or (= base "") (= base "/"))
+      routes
+      (into [base] routes))))
 
 (defn start-fe-router []
   (rfe/start!
-   (rf/router route)
+   (rf/router (route "/fullstack-reframe"))
    (fn [m] (re-frame/dispatch [::events.change-view m]))
    {:use-fragment false}))
 
