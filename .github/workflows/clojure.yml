@@ -1,0 +1,22 @@
+name: Clojure CI
+
+on:
+  push:
+    branches: [ "master" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Install dependencies
+      working-directory: ./crudy
+      run: lein deps
+    - name: Run tests
+      working-directory: ./crudy
+      run: lein test
+    - name: Production build with lein-shadow
+      working-directory: ./crudy
+      run: lein prod
