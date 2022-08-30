@@ -25,7 +25,7 @@
    ;:view [:list-things]
    :view {:data {:name :page/welcome}}
    :state {}
-   :modal [false nil]
+   :modal [false nil nil]
    :data {:things [{:id 1 :user-name "Foo" :stat 53 :attr ["twit" "goog"]}
                    {:id 2 :user-name "Bar" :stat 21 :attr ["goog"]}
                    {:id 3 :user-name "Mary" :stat 5 :attr []}

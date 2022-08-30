@@ -14,8 +14,9 @@
 
 (re-frame/reg-event-db
  ::events.list-things-delete
- (fn [db [_ id]]
-   (assoc-in db [:modal] [true :confirm-delete])))
+ (fn [db [_ thing]]
+   (println thing)
+   (assoc-in db [:modal] [true :confirm-delete thing])))
 
 (re-frame/reg-sub
  ::subs.things
@@ -44,7 +45,10 @@
               {:name "Actions" :actions [{:name "Edit"   :description "Edit this item"   :icon "pencil" :type "icon"
                                           :href "https://www.google.com"}
                                          {:name "Delete" :description "Delete this item" :icon "trash"  :type "icon"
-                                          :onClick (fn [x] (re-frame/dispatch [::events.list-things-delete x]))}]}]
+                                          :onClick (fn [x] (re-frame/dispatch [::events.list-things-delete 
+                                                                               {:type :user,
+                                                                                :obj (js->clj x 
+                                                                                              :keywordize-keys true)}]))}]}]
         selected-items (re-frame/subscribe [::subs.list-things-selected])]
     [:div
      [:h1 "List of things"]

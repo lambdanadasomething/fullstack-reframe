@@ -40,10 +40,10 @@
          [:> EuiPageSection
           [page-header]
           [routing/mycontent @cur-route]]]
-        (let [[has-modal modal-type] @modal]
+        (let [[has-modal modal-type modal-arg] @modal]
           (when has-modal
             [:> EuiOverlayMask
-             [modal/prompt-modal modal-type]]))]]
+             [modal/prompt-modal modal-type modal-arg]]))]]
       )))
 
 ;[:> EuiPage
