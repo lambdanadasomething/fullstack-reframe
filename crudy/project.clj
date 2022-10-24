@@ -8,7 +8,8 @@
                  [macchiato/core "0.2.22"]
                  [com.taoensso/timbre "5.2.1"]
                  [com.github.pkpkpk/cljs-node-io "2.0.332"]
-                 [macchiato/hiccups "0.4.1"]]
+                 [macchiato/hiccups "0.4.1"]
+                 [fork "2.4.3"]]
 
   :plugins [[lein-shadow "0.4.0"]
             
